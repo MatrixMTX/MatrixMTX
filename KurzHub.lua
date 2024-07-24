@@ -233,7 +233,7 @@ function ESP()
 			end
 		end)
 	else
-        _G.ESPVisible = not _G.ESPVisible
+        _G.ESPVisible = false
 		for i, v in pairs(Players:GetChildren()) do
 			if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("HumanoidRootPart"):FindFirstChild("Highlight") then
 				v.Character:FindFirstChild("HumanoidRootPart"):FindFirstChild("Highlight"):Destroy()
@@ -308,7 +308,7 @@ EspTab:AddToggle({
     Default = false,
 	Callback = function(Value)
       	_G.ESP = Value
-        _G.ESPVisible = not _G.ESPVisible
+        _G.ESPVisible = Value
         ESP()
         print(Value)
   	end    
