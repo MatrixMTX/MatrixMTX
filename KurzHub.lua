@@ -34,9 +34,6 @@ function ESP()
 				local highlightClone = highlight:Clone()
 				highlightClone.Adornee = player.Character
 				highlightClone.Parent = player.Character:FindFirstChild("HumanoidRootPart")
-				highlightClone.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
-				highlightClone.OutlineColor = _G.Color
-				highlightClone.FillTransparency = 1
 				highlightClone.Name = "Highlight"
 			end
 		end)
@@ -55,7 +52,7 @@ function ESP()
 					highlightClone.Adornee = v.Character
 					highlightClone.Parent = v.Character:FindFirstChild("HumanoidRootPart")
 					highlightClone.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
-					highlightClone.OutlineColor = Color3.fromHSV(_G.Color)
+					highlightClone.OutlineColor = _G.Color
 					highlightClone.FillTransparency = 1
 					highlightClone.Name = "Highlight"
 					task.wait()
@@ -69,13 +66,6 @@ function ESP()
 			end
 		end
 	end    
-end
-
-function SpeedJump()
-    while wait() do
-        game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").Walkspeed = _G.WS
-        game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").JumpPower = _G.JH
-    end
 end
 
 -- Tabs
@@ -96,6 +86,7 @@ PlayerTab:AddSlider({
     ValueName = "WS",
     Callback = function(Value)
         _G.WS = Value
+        game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").WalkSpeed = _G.WS
     end
 })
 
@@ -109,6 +100,7 @@ PlayerTab:AddSlider({
     ValueName = "JH",
     Callback = function(Value)
         _G.JH = Value
+        game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").JumpPower = _G.JH
     end
 })
 
@@ -117,6 +109,7 @@ PlayerTab:AddToggle({
     Default = false,
 	Callback = function(Value)
       	_G.ESP = Value
+        ESP()
         print(Value)
   	end    
 })
@@ -126,12 +119,7 @@ PlayerTab:AddColorpicker({
 	Default = Color3.fromRGB(255, 255, 255),
 	Callback = function(Value)
         _G.Color = Value
-        _G.ESP = false
-		print(Value)
-        _G.ESP = true
 	end
 })
 
 OrionLib.init()
-ESP()
-SpeedJump()
