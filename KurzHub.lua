@@ -213,15 +213,6 @@ function InfiniteJump()
 	end
 end
 
--- While
-
-while wait() do
-    if _G.KeepData then
-        game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").WalkSpeed = _G.WS
-        game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").JumpPower = _G.JH
-    end
-end
-
 -- Coroutine
 
 local ESP_Coroutine = coroutine.create(ESP)
@@ -305,3 +296,12 @@ EspTab:AddColorpicker({
 })
 
 OrionLib.init()
+
+-- While
+
+while wait() do
+    if _G.KeepData then
+        game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").WalkSpeed = _G.WS
+        game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").JumpPower = _G.JH
+    end
+end
