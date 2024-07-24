@@ -5,14 +5,12 @@ local RunService = game:GetService("RunService")
 local highlight = Instance.new("Highlight")
 highlight.Name = "Highlight"
 
--- Functions
-local isEnabled = true -- 초기 상태를 활성화로 설정
+-- Values
+_G.ESP = false
 
--- 활성화/비활성화 함수
-local function ESP()
-    isEnabled = _G.ESP
-    
-    if isEnabled then
+-- Functions
+function ESP()
+    if _G.ESP then
         -- 활성화 로직
         for i, v in pairs(Players) do
             repeat wait() until v.Character
@@ -53,7 +51,6 @@ local function ESP()
             end
         end)
     else
-        -- 비활성화 로직
         for i, v in pairs(Players) do
             if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("HumanoidRootPart").Highlight then
                 v.Character:FindFirstChild("HumanoidRootPart").Highlight:Destroy()
