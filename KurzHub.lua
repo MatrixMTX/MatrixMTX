@@ -68,10 +68,23 @@ function ESP()
 	end    
 end
 
+function InfiniteJump()
+    while _G.isJumping do -- Loop indefinitely
+        game.Players.LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+        wait() -- Wait a short time before jumping again
+    end
+end
+
 -- Tabs
 
 local PlayerTab = Window:MakeTab({
 	Name = "Player",
+	Icon = "rbxassetid://4483345998",
+	PremiumOnly = false
+})
+
+local EspTab = Window:MakeTab({
+	Name = "ESP",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
@@ -105,7 +118,16 @@ PlayerTab:AddSlider({
 })
 
 PlayerTab:AddToggle({
-	Name = "ESP",
+    Name = "Infinite Jump",
+    Default = false,
+    Callback = function(Value)
+        _G.isJumping = Value
+        InfiniteJump()
+    end
+})
+
+EspTab:AddToggle({
+	Name = "ESP Mode",
     Default = false,
 	Callback = function(Value)
       	_G.ESP = Value
@@ -114,7 +136,7 @@ PlayerTab:AddToggle({
   	end    
 })
 
-PlayerTab:AddColorpicker({
+EspTab:AddColorpicker({
 	Name = "ESP Outline",
 	Default = Color3.fromRGB(255, 255, 255),
 	Callback = function(Value)
