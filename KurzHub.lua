@@ -8,6 +8,8 @@ highlight.Name = "Highlight"
 -- Values
 _G.ESP = false
 _G.Color = Color3.fromHSV(0,0,1)
+_G.WS = 16
+_G.JH = 50
 
 -- Functions
 function ESP()
@@ -69,25 +71,57 @@ function ESP()
 	end    
 end
 
+function SpeedJump()
+    while wait() do
+        game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").Walkspeed = _G.WS
+        game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").JumpPower = _G.JH
+    end
+end
+
 -- Tabs
 
-local Tab = Window:MakeTab({
-	Name = "Test1",
+local PlayerTab = Window:MakeTab({
+	Name = "Player",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
 
-Tab:AddToggle({
+PlayerTab:AddSlider({
+    Name = "Walkspeed",
+    Min = 16,
+    Max = 500,
+    Default = 16,
+    Color = Color3.fromRGB(255,255,255),
+    Increment = 1,
+    ValueName = "WS",
+    Callback = function(Value)
+        _G.WS = Value
+    end
+})
+
+PlayerTab:AddSlider({
+    Name = "JumpHeight",
+    Min = 16,
+    Max = 500,
+    Default = 50,
+    Color = Color3.fromRGB(255,255,255),
+    Increment = 1,
+    ValueName = "JH",
+    Callback = function(Value)
+        _G.JH = Value
+    end
+})
+
+PlayerTab:AddToggle({
 	Name = "ESP",
     Default = false,
 	Callback = function(Value)
       	_G.ESP = Value
         print(Value)
-        ESP()
   	end    
 })
 
-Tab:AddColorpicker({
+PlayerTab:AddColorpicker({
 	Name = "ESP Outline",
 	Default = Color3.fromRGB(255, 255, 255),
 	Callback = function(Value)
@@ -99,3 +133,5 @@ Tab:AddColorpicker({
 })
 
 OrionLib.init()
+ESP()
+SpeedJump()
