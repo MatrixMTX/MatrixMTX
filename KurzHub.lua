@@ -204,8 +204,12 @@ function InfiniteJump()
 		game:GetService("UserInputService").JumpRequest:connect(function()
 			if _G.isJumping then
 				game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass('Humanoid'):ChangeState("Jumping")
+			else
+				coroutine.yield()
 			end
 		end)
+	else
+		coroutine.yield()
 	end
 end
 
@@ -221,6 +225,7 @@ end
 -- Coroutine
 
 local ESP_Coroutine = coroutine.create(ESP)
+local InfJump_Coroutine = coroutine.create(InfiniteJump)
 
 -- Tabs
 
@@ -277,7 +282,7 @@ PlayerTab:AddToggle({
 	Default = false,
 	Callback = function(Value)
 		_G.isJumping = Value
-		InfiniteJump()
+		coroutine.resume(InfJump_Coroutine)
 	end
 })
 
