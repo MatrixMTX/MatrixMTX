@@ -34,6 +34,9 @@ function ESP()
 				local highlightClone = highlight:Clone()
 				highlightClone.Adornee = player.Character
 				highlightClone.Parent = player.Character:FindFirstChild("HumanoidRootPart")
+                highlightClone.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+				highlightClone.OutlineColor = _G.Color
+				highlightClone.FillTransparency = 1
 				highlightClone.Name = "Highlight"
 			end
 		end)
@@ -101,7 +104,7 @@ PlayerTab:AddSlider({
     Default = 16,
     Color = Color3.fromRGB(255,255,255),
     Increment = 1,
-    ValueName = "WS",
+    ValueName = "Speed",
     Callback = function(Value)
         _G.WS = Value
         game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").WalkSpeed = _G.WS
@@ -115,7 +118,7 @@ PlayerTab:AddSlider({
     Default = 50,
     Color = Color3.fromRGB(255,255,255),
     Increment = 1,
-    ValueName = "JH",
+    ValueName = "Height",
     Callback = function(Value)
         _G.JH = Value
         game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").JumpPower = _G.JH
