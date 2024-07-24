@@ -41,6 +41,7 @@ function ESP()
 				local ESP = Drawing.new("Text")
 
 				RunService.RenderStepped:Connect(function()
+					if _G.ESP == false then coroutine.yield() end
 					if workspace:FindFirstChild(v.Name) ~= nil and workspace[v.Name]:FindFirstChild("HumanoidRootPart") ~= nil then
 						local Vector, OnScreen = Camera:WorldToViewportPoint(workspace[v.Name]:WaitForChild("Head", math.huge).Position)
 
@@ -73,6 +74,19 @@ function ESP()
 					else
 						ESP.Visible = false
 					end
+					for i, s in pairs(Players:GetChildren()) do
+						repeat wait() until s.Character
+						if not s.Character:FindFirstChild("HumanoidRootPart"):FindFirstChild("Highlight") and _G.ESP then
+							local highlightClone = highlight:Clone()
+							highlightClone.Adornee = s.Character
+							highlightClone.Parent = s.Character:FindFirstChild("HumanoidRootPart")
+							highlightClone.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+							highlightClone.OutlineColor = _G.Color
+							highlightClone.FillTransparency = 1
+							highlightClone.Name = "Highlight"
+							task.wait()
+						end
+					end
 				end)
 
 				Players.PlayerRemoving:Connect(function()
@@ -80,52 +94,6 @@ function ESP()
 				end)
 			end
 		end
-
-		Players.PlayerAdded:Connect(function(Player)
-			Player.CharacterAdded:Connect(function(v)
-				if v.Name ~= Players.LocalPlayer.Name then 
-					local ESP = Drawing.new("Text")
-
-					RunService.RenderStepped:Connect(function()
-						if workspace:FindFirstChild(v.Name) ~= nil and workspace[v.Name]:FindFirstChild("HumanoidRootPart") ~= nil then
-							local Vector, OnScreen = Camera:WorldToViewportPoint(workspace[v.Name]:WaitForChild("Head", math.huge).Position)
-
-							ESP.Size = _G.TextSize
-							ESP.Center = _G.Center
-							ESP.Outline = _G.Outline
-							ESP.OutlineColor = _G.OutlineColor
-							ESP.Color = _G.Color
-							ESP.Transparency = _G.TextTransparency
-
-							if OnScreen == true then
-								local Part1 = workspace:WaitForChild(v.Name, math.huge):WaitForChild("HumanoidRootPart", math.huge).Position
-								local Part2 = workspace:WaitForChild(Players.LocalPlayer.Name, math.huge):WaitForChild("HumanoidRootPart", math.huge).Position or 0
-								local Dist = (Part1 - Part2).Magnitude
-								ESP.Position = Vector2.new(Vector.X, Vector.Y - 25)
-								ESP.Text = ("("..tostring(math.floor(tonumber(Dist)))..") "..v.Name.." ["..workspace[v.Name].Humanoid.Health.."]")
-								if _G.TeamCheck == true then 
-									if Players.LocalPlayer.Team ~= Player.Team then
-										ESP.Visible = _G.ESP
-									else
-										ESP.Visible = false
-									end
-								else
-									ESP.Visible = _G.ESP
-								end
-							else
-								ESP.Visible = false
-							end
-						else
-							ESP.Visible = false
-						end
-					end)
-
-					Players.PlayerRemoving:Connect(function()
-						ESP.Visible = false
-					end)
-				end
-			end)
-		end)
 		-- 활성화 로직
 		for i, v in pairs(Players:GetChildren()) do
 			repeat wait() until v.Character
@@ -141,7 +109,9 @@ function ESP()
 		end
 
 		game.Players.PlayerAdded:Connect(function(player)
+			if _G.ESP == false then coroutine.yield() end
 			Player.CharacterAdded:Connect(function(v)
+				if _G.ESP == false then coroutine.yield() end
 				if not player.Character:FindFirstChild("HumanoidRootPart"):FindFirstChild("Highlight") and _G.ESP then
 					local highlightClone = highlight:Clone()
 					highlightClone.Adornee = player.Character
@@ -217,29 +187,15 @@ function ESP()
 		UserInputService.TextBoxFocusReleased:Connect(function()
 			Typing = false
 		end)
-
-		RunService.Heartbeat:Connect(function()
-			for i, v in pairs(Players:GetChildren()) do
-				repeat wait() until v.Character
-				if not v.Character:FindFirstChild("HumanoidRootPart"):FindFirstChild("Highlight") and _G.ESP then
-					local highlightClone = highlight:Clone()
-					highlightClone.Adornee = v.Character
-					highlightClone.Parent = v.Character:FindFirstChild("HumanoidRootPart")
-					highlightClone.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
-					highlightClone.OutlineColor = _G.Color
-					highlightClone.FillTransparency = 1
-					highlightClone.Name = "Highlight"
-					task.wait()
-				end
-			end
-		end)
 	else
 		for i, v in pairs(Players:GetChildren()) do
 			if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("HumanoidRootPart"):FindFirstChild("Highlight") then
 				v.Character:FindFirstChild("HumanoidRootPart"):FindFirstChild("Highlight"):Destroy()
 			end
 		end
+		coroutine.yield()
 	end
+	coroutine.yield()
     return
 end
 
@@ -261,6 +217,10 @@ while wait() do
         game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").JumpPower = _G.JH
     end
 end
+
+-- Coroutine
+
+local ESP_Coroutine = coroutine.create(ESP)
 
 -- Tabs
 
@@ -308,7 +268,7 @@ PlayerTab:AddToggle({
     Name = "Keep Data",
     Default = false,
     Callback = function(Value)
-        _G.KeepData
+        _G.KeepData = Value
     end
 })
 
@@ -326,7 +286,7 @@ EspTab:AddToggle({
 	Default = false,
 	Callback = function(Value)
 		_G.ESP = Value
-		ESP()
+		coroutine.resume(ESP_Coroutine)
 		print(Value)
 	end    
 })
