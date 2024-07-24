@@ -9,7 +9,7 @@ local Camera = workspace.CurrentCamera
 -- Values
 local Typing = false
 _G.ESP = false
-_G.Color = Color3.fromHSV(0,0,1)
+_G.Color = Color3.fromHSV(0.0666667, 0.509804, 1)
 
 _G.SendNotifications = true   -- If set to true then the script would notify you frequently on any changes applied and when loaded / errored. (If a game can detect this, it is recommended to set it to false)
 _G.DefaultSettings = false   -- If set to true then the ESP script would run with default settings regardless of any changes you made.
@@ -47,7 +47,7 @@ function ESP()
 						ESP.Center = _G.Center
 						ESP.Outline = _G.Outline
 						ESP.OutlineColor = _G.OutlineColor
-						ESP.Color = _G.TextColor
+						ESP.Color = _G.Color
 						ESP.Transparency = _G.TextTransparency
 						ESP.Font = _G.TextFont
 
@@ -93,7 +93,7 @@ function ESP()
 							ESP.Center = _G.Center
 							ESP.Outline = _G.Outline
 							ESP.OutlineColor = _G.OutlineColor
-							ESP.Color = _G.TextColor
+							ESP.Color = _G.Color
 							ESP.Transparency = _G.TextTransparency
 
 							if OnScreen == true then
@@ -161,7 +161,7 @@ function ESP()
 							ESP.Center = _G.Center
 							ESP.Outline = _G.Outline
 							ESP.OutlineColor = _G.OutlineColor
-							ESP.Color = _G.TextColor
+							ESP.Color = _G.Color
 							ESP.Transparency = _G.TextTransparency
 
 							if OnScreen == true then
@@ -200,7 +200,7 @@ function ESP()
 		if _G.DefaultSettings == true then
 			_G.TeamCheck = false
 			_G.ESPVisible = false
-			_G.TextColor = Color3.fromRGB(40, 90, 255)
+			_G.TextColor = _G.Color
 			_G.TextSize = 14
 			_G.Center = true
 			_G.Outline = false
