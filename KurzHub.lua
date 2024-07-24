@@ -2,18 +2,19 @@ local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shl
 local Window = OrionLib:MakeWindow({Name = "Kurz Hub", HidePremium = false, IntroText = "Kurz Hub Loader", SaveConfig = true, ConfigFolder = "KurzHub"})
 local Players = game:GetService("Players"):GetChildren()
 local RunService = game:GetService("RunService")
-local highlight = Instance.new("Highlight")
-highlight.Name = "Highlight"
 
 -- Values
 _G.ESP = false
 _G.Color = Color3.fromHSV(0,0,1)
 _G.WS = 16
 _G.JH = 50
+_G.isJumping = false
 
 -- Functions
 function ESP()
 	if _G.ESP then
+        local highlight = Instance.new("Highlight")
+        highlight.Name = "Highlight"
 		-- 활성화 로직
 		for i, v in pairs(Players) do
 			repeat wait() until v.Character
@@ -72,15 +73,13 @@ function ESP()
 end
 
 function InfiniteJump()
-    game:GetService("UserInputService").InputBegan:Connect(function(input, isTyping)
-        if isTyping then return end -- Ignore input if the player is typing in chat
-        if input.KeyCode == Enum.KeyCode.Space then
-            while _G.isJumping do -- Loop indefinitely
-                game.Players.LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-                wait() -- Wait a short time before jumping again
+    if _G.isJumping then
+        game:GetService("UserInputService").JumpRequest:connect(function()
+            if _G.isJumping then
+                game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass('Humanoid'):ChangeState("Jumping")
             end
-        end
-    end)
+        end)
+    end
 end
 
 -- Tabs
