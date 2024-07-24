@@ -41,7 +41,7 @@ function ESP()
 				local ESP = Drawing.new("Text")
 
 				RunService.RenderStepped:Connect(function()
-					if _G.ESP == false then coroutine.yield() end
+					if _G.ESP == false then return end
 					if workspace:FindFirstChild(v.Name) ~= nil and workspace[v.Name]:FindFirstChild("HumanoidRootPart") ~= nil then
 						local Vector, OnScreen = Camera:WorldToViewportPoint(workspace[v.Name]:WaitForChild("Head", math.huge).Position)
 
@@ -109,9 +109,9 @@ function ESP()
 		end
 
 		game.Players.PlayerAdded:Connect(function(player)
-			if _G.ESP == false then coroutine.yield() end
+			if _G.ESP == false then return end
 			Player.CharacterAdded:Connect(function(v)
-				if _G.ESP == false then coroutine.yield() end
+				if _G.ESP == false then return end
 				if not player.Character:FindFirstChild("HumanoidRootPart"):FindFirstChild("Highlight") and _G.ESP then
 					local highlightClone = highlight:Clone()
 					highlightClone.Adornee = player.Character
@@ -188,14 +188,14 @@ function ESP()
 			Typing = false
 		end)
 	else
+		ESP.Visible = false
 		for i, v in pairs(Players:GetChildren()) do
 			if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("HumanoidRootPart"):FindFirstChild("Highlight") then
 				v.Character:FindFirstChild("HumanoidRootPart"):FindFirstChild("Highlight"):Destroy()
 			end
 		end
-		coroutine.yield()
+		return
 	end
-	coroutine.yield()
     return
 end
 
@@ -205,18 +205,13 @@ function InfiniteJump()
 			if _G.isJumping then
 				game:GetService("Players").LocalPlayer.Character:FindFirstChildOfClass('Humanoid'):ChangeState("Jumping")
 			else
-				coroutine.yield()
+				return
 			end
 		end)
 	else
-		coroutine.yield()
+		return
 	end
 end
-
--- Coroutine
-
-local ESP_Coroutine = coroutine.create(ESP)
-local InfJump_Coroutine = coroutine.create(InfiniteJump)
 
 -- Tabs
 
@@ -273,7 +268,7 @@ PlayerTab:AddToggle({
 	Default = false,
 	Callback = function(Value)
 		_G.isJumping = Value
-		coroutine.resume(InfJump_Coroutine)
+		InfiniteJump()
 	end
 })
 
@@ -282,7 +277,7 @@ EspTab:AddToggle({
 	Default = false,
 	Callback = function(Value)
 		_G.ESP = Value
-		coroutine.resume(ESP_Coroutine)
+		ESP()
 		print(Value)
 	end    
 })
