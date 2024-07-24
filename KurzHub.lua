@@ -66,8 +66,6 @@ local function ESP()
     end
 end
 
-function ESP()
-
 
 -- Tabs
 
