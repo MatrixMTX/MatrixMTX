@@ -69,10 +69,15 @@ function ESP()
 end
 
 function InfiniteJump()
-    while _G.isJumping do -- Loop indefinitely
-        game.Players.LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
-        wait() -- Wait a short time before jumping again
-    end
+    game:GetService("UserInputService").InputBegan:Connect(function(input, isTyping)
+        if isTyping then return end -- Ignore input if the player is typing in chat
+        if input.KeyCode == Enum.KeyCode.Space then
+            while _G.isJumping do -- Loop indefinitely
+                game.Players.LocalPlayer.Character.Humanoid:ChangeState(Enum.HumanoidStateType.Jumping)
+                wait() -- Wait a short time before jumping again
+            end
+        end
+    end)
 end
 
 -- Tabs
