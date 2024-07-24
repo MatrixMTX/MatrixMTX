@@ -27,6 +27,7 @@ _G.TextFont = Drawing.Fonts.UI   -- The font of the text. (UI, System, Plex, Mon
 
 _G.WS = 16
 _G.JH = 50
+_G.KeepData = false
 _G.isJumping = false
 
 -- Functions
@@ -252,6 +253,15 @@ function InfiniteJump()
 	end
 end
 
+-- While
+
+while wait() do
+    if _G.KeepData then
+        game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").WalkSpeed = _G.WS
+        game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").JumpPower = _G.JH
+    end
+end
+
 -- Tabs
 
 local PlayerTab = Window:MakeTab({
@@ -276,13 +286,13 @@ PlayerTab:AddSlider({
 	ValueName = "Speed",
 	Callback = function(Value)
 		_G.WS = Value
-		game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").WalkSpeed = _G.WS
+        game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").WalkSpeed = _G.WS
 	end
 })
 
 PlayerTab:AddSlider({
 	Name = "JumpHeight",
-	Min = 16,
+	Min = 50,
 	Max = 500,
 	Default = 50,
 	Color = Color3.fromRGB(255,255,255),
@@ -290,8 +300,16 @@ PlayerTab:AddSlider({
 	ValueName = "Height",
 	Callback = function(Value)
 		_G.JH = Value
-		game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").JumpPower = _G.JH
+        game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").JumpPower = _G.JH
 	end
+})
+
+PlayerTab:AddToggle({
+    Name = "Keep Data",
+    Default = false,
+    Callback = function(Value)
+        _G.KeepData
+    end
 })
 
 PlayerTab:AddToggle({
