@@ -7,6 +7,9 @@ highlight.Name = "Highlight"
 
 -- Values
 _G.ESP = false
+_G.H = 1
+_G.S = 1
+_G.V = 1
 
 -- Functions
 function ESP()
@@ -19,6 +22,8 @@ function ESP()
 				highlightClone.Adornee = v.Character
 				highlightClone.Parent = v.Character:FindFirstChild("HumanoidRootPart")
 				highlightClone.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+				highlightClone.OutlineColor = Color3.fromHSV(_G.H, _G.S, _G.V)
+				highlightClone.FillTransparency = 1
 				highlightClone.Name = "Highlight"
 			end
 		end
@@ -47,6 +52,8 @@ function ESP()
 					highlightClone.Adornee = v.Character
 					highlightClone.Parent = v.Character:FindFirstChild("HumanoidRootPart")
 					highlightClone.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+					highlightClone.OutlineColor = Color3.fromHSV(_G.H, _G.S, _G.V)
+					highlightClone.FillTransparency = 1
 					highlightClone.Name = "Highlight"
 					task.wait()
 				end
@@ -60,7 +67,6 @@ function ESP()
 		end
 	end    
 end
-
 
 -- Tabs
 
@@ -78,6 +84,17 @@ Tab:AddToggle({
         print(Value)
         ESP()
   	end    
+})
+
+Tab:AddColorpicker({
+	Name = "ESP Outline",
+	Default = Color3.fromRGB(255, 255, 255),
+	Callback = function(Value)
+        _G.H = Value[1]
+        _G.S = Value[2]
+        _G.V = Value[3]
+		print(_G.H, _G.S, _G.V)
+	end
 })
 
 OrionLib.init()
