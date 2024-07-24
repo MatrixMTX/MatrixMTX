@@ -7,9 +7,7 @@ highlight.Name = "Highlight"
 
 -- Values
 _G.ESP = false
-_G.H = 1
-_G.S = 1
-_G.V = 1
+_G.Color = Color3.fromHSV(0,0,1)
 
 -- Functions
 function ESP()
@@ -22,7 +20,7 @@ function ESP()
 				highlightClone.Adornee = v.Character
 				highlightClone.Parent = v.Character:FindFirstChild("HumanoidRootPart")
 				highlightClone.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
-				highlightClone.OutlineColor = Color3.fromHSV(_G.H, _G.S, _G.V)
+				highlightClone.OutlineColor = _G.Color
 				highlightClone.FillTransparency = 1
 				highlightClone.Name = "Highlight"
 			end
@@ -34,13 +32,16 @@ function ESP()
 				local highlightClone = highlight:Clone()
 				highlightClone.Adornee = player.Character
 				highlightClone.Parent = player.Character:FindFirstChild("HumanoidRootPart")
+				highlightClone.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+				highlightClone.OutlineColor = _G.Color
+				highlightClone.FillTransparency = 1
 				highlightClone.Name = "Highlight"
 			end
 		end)
 
 		game.Players.PlayerRemoving:Connect(function(playerRemoved)
-			if playerRemoved.Character and playerRemoved.Character:FindFirstChild("HumanoidRootPart") and _G.ESP then
-				playerRemoved.Character:FindFirstChild("HumanoidRootPart").Highlight:Destroy()
+			if playerRemoved.Character and playerRemoved.Character:FindFirstChild("HumanoidRootPart") and playerRemoved.Character:FindFirstChild("HumanoidRootPart"):FindFirstChild("Highlight") and _G.ESP then
+				playerRemoved.Character:FindFirstChild("HumanoidRootPart"):FindFirstChild("Highlight"):Destroy()
 			end
 		end)
 
@@ -52,7 +53,7 @@ function ESP()
 					highlightClone.Adornee = v.Character
 					highlightClone.Parent = v.Character:FindFirstChild("HumanoidRootPart")
 					highlightClone.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
-					highlightClone.OutlineColor = Color3.fromHSV(_G.H, _G.S, _G.V)
+					highlightClone.OutlineColor = Color3.fromHSV(_G.Color)
 					highlightClone.FillTransparency = 1
 					highlightClone.Name = "Highlight"
 					task.wait()
@@ -62,7 +63,7 @@ function ESP()
 	else
 		for i, v in pairs(Players) do
 			if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("HumanoidRootPart"):FindFirstChild("Highlight") then
-				v.Character:FindFirstChild("HumanoidRootPart").Highlight:Destroy()
+				v.Character:FindFirstChild("HumanoidRootPart"):FindFirstChild("Highlight"):Destroy()
 			end
 		end
 	end    
@@ -90,10 +91,10 @@ Tab:AddColorpicker({
 	Name = "ESP Outline",
 	Default = Color3.fromRGB(255, 255, 255),
 	Callback = function(Value)
-        _G.H = Value[1]
-        _G.S = Value[2]
-        _G.V = Value[3]
-		print(_G.H, _G.S, _G.V)
+        _G.Color = Value
+        _G.ESP = false
+		print(Value)
+        _G.ESP = true
 	end
 })
 
