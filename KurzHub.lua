@@ -75,10 +75,10 @@ local Tab = Window:MakeTab({
 	PremiumOnly = false
 })
 
-Tab:AddButton({
+Tab:AddToggle({
 	Name = "ESP",
     Default = false,
-	Callback = function()
+	Callback = function(value)
       	_G.ESP = value
         ESP()
   	end    
