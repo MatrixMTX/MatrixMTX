@@ -297,6 +297,12 @@ local SettingTab = Window:MakeTab({
 	PremiumOnly = false
 })
 
+local CreditsTab = Window:MakeTab({
+	Name = "Credits",
+	Icon = "rbxassetid://6031280882",
+	PremiumOnly = false
+})
+
 MainTab:AddLabel("Just Main Tab lol")
 MainTab:AddLabel("Copyright (C) Kurz")
 
@@ -380,6 +386,16 @@ EspTab:AddColorpicker({
 })
 
 SettingTab:AddLabel("Show/Hide Key: RightShift")
+SettingTab:AddButton({
+	Name = "Destroy UI",
+	Callback = function()
+		OrionLib:Destroy()
+	end
+})
 SettingTab:AddLabel("KurzHub Version: v0.6.8")
+
+CreditsTab:AddLabel("Scripter: TW_ASVZ / Kurz")
+CreditsTab:AddLabel("Planner: TW_ASVZ / Kurz")
+CreditsTab:AddLabel("UI: TW_ASVZ / Kurz")
 
 OrionLib.init()
