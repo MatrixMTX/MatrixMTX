@@ -227,6 +227,19 @@ function CtrlTP()
 	end
 end
 
+function KeepData()
+	while _G.KeepData == true do
+		wait(0.1)
+		if _G.KeepData then
+			game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").WalkSpeed = _G.WS
+			game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").JumpPower = _G.JH
+		else
+			return
+		end
+	end
+	return
+end
+
 function InfiniteJump()
 	if _G.isJumping then
 		game:GetService("UserInputService").JumpRequest:connect(function()
@@ -248,18 +261,6 @@ function Notifications(text)
 		Image = "rbxassetid://4483345998",
 		Time = 5
 	})
-end
-
-function KeepData()
-	while _G.KeepData do
-		if _G.KeepData then
-			game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").WalkSpeed = _G.WS
-			game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").JumpPower = _G.JH
-		else
-			return
-		end
-	end
-	return
 end
 
 -- Tabs
