@@ -35,7 +35,7 @@ end
 
 -- MakeWindow
 
-local Tab = Windows:MakeTab({
+local Tab = Window:MakeTab({
     Name = "Key",
     Icon = "rbxassetid://4483345998",
     PremiumOnly = false
