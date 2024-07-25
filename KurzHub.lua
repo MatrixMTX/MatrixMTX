@@ -207,6 +207,15 @@ function InfiniteJump()
 	end
 end
 
+function Notifications(text)
+	OrionLib:MakeNotification({
+		Name = "Kurz Hub",
+		Content = text,
+		Image = "rbxassetid://4483345998",
+		Time = 5
+	})
+end
+
 -- Tabs
 
 local PlayerTab = Window:MakeTab({
@@ -254,6 +263,7 @@ PlayerTab:AddToggle({
     Default = false,
     Callback = function(Value)
         _G.KeepData = Value
+		Notifications("Keep Data: "..Value)
     end
 })
 
@@ -263,6 +273,7 @@ PlayerTab:AddToggle({
 	Callback = function(Value)
 		_G.isJumping = Value
 		InfiniteJump()
+		Notifications("InfiniteJump: "..Value)
 	end
 })
 
@@ -272,7 +283,7 @@ EspTab:AddToggle({
 	Callback = function(Value)
 		_G.ESP = Value
 		ESP()
-		print(Value)
+		Notifications("ESP: "..Value)
 	end    
 })
 
