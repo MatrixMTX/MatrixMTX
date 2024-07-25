@@ -188,7 +188,6 @@ function ESP()
 			Typing = false
 		end)
 	else
-		ESP.Visible = false
 		for i, v in pairs(Players:GetChildren()) do
 			if v.Character and v.Character:FindFirstChild("HumanoidRootPart") and v.Character:FindFirstChild("HumanoidRootPart"):FindFirstChild("Highlight") then
 				v.Character:FindFirstChild("HumanoidRootPart"):FindFirstChild("Highlight"):Destroy()
@@ -297,4 +296,4 @@ while wait() do
         game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").WalkSpeed = _G.WS
         game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").JumpPower = _G.JH
     end
-end
+endv
