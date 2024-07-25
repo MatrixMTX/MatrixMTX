@@ -41,13 +41,12 @@ local Tab = Window:MakeTab({
     PremiumOnly = false
 })
 
-Tab:AddTextBox({
+Tab:AddTextbox({
     Name = "Enter Key",
     Default = "Enter Key",
     TextDisappear = true,
     Callback = function(Value)
         _G.KeyInput = Value
-
     end
 })
 
