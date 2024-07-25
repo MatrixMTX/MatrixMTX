@@ -20,8 +20,8 @@ _G.KeyInput = "string"
 
 function MakeScriptHub()
     print("Currect Key")
-    loadstring(game:HttpGet(('https://raw.githubusercontent.com/MatrixMTX/MatrixMTX/main/KurzHub.lua')))()
     OrionLib:Destroy()
+    loadstring(game:HttpGet(('https://raw.githubusercontent.com/MatrixMTX/MatrixMTX/main/KurzHub.lua')))()
 end
 
 function Notifications(text)
