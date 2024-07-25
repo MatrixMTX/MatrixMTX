@@ -250,6 +250,18 @@ function Notifications(text)
 	})
 end
 
+function KeepData()
+	while _G.KeepData do
+		if _G.KeepData then
+			game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").WalkSpeed = _G.WS
+			game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").JumpPower = _G.JH
+		else
+			return
+		end
+	end
+	return
+end
+
 -- Tabs
 
 local MainTab = Window:MakeTab({
@@ -331,6 +343,7 @@ PlayerTab:AddToggle({
     Default = false,
     Callback = function(Value)
         _G.KeepData = Value
+		KeepData()
     end
 })
 
@@ -367,12 +380,3 @@ SettingTab:AddLabel("Show/Hide Key: RightShift")
 SettingTab:AddLabel("KurzHub Version: v0.6.8")
 
 OrionLib.init()
-
--- While
-
-while wait() do
-    if _G.KeepData then
-        game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").WalkSpeed = _G.WS
-        game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").JumpPower = _G.JH
-    end
-end
