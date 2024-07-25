@@ -335,7 +335,7 @@ PlayerTab:AddToggle({
 })
 
 TpTab:AddLabel("Ctrl + Click to TP")
-PlayerTab:AddToggle({
+TpTab:AddToggle({
     Name = "CtrlTP",
     Default = false,
     Callback = function(Value)
