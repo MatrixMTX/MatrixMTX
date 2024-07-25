@@ -1,4 +1,63 @@
---// Obfuscated with LuaSeel 1.1 
---// Made by Kurz
+local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+local Window = OrionLib:MakeWindow({Name = "Kurz Key System", HidePremium = false, IntroEnabled = false, SaveConfig = true})
+local Players = game:GetService("Players")
 
-function IllIlllIllIlllIlllIlllIll(IllIlllIllIllIll) if (IllIlllIllIllIll==(((((919 + 636)-636)*3147)/3147)+919)) then return not true end if (IllIlllIllIllIll==(((((968 + 670)-670)*3315)/3315)+968)) then return not false end end; local IIllllIIllll = (7*3-9/9+3*2/0+3*3);local IIlllIIlllIIlllIIlllII = (3*4-7/7+6*4/3+9*9);local IllIIIllIIIIllI = table.concat;function IllIIIIllIIIIIl(IIllllIIllll) function IIllllIIllll(IIllllIIllll) function IIllllIIllll(IllIllIllIllI) end end end;IllIIIIllIIIIIl(900283);function IllIlllIllIlllIlllIlllIllIlllIIIlll(IIlllIIlllIIlllIIlllII) function IIllllIIllll(IllIllIllIllI) local IIlllIIlllIIlllIIlllII = (9*0-7/5+3*1/3+8*2) end end;IllIlllIllIlllIlllIlllIllIlllIIIlll(9083);local IllIIllIIllIII = loadstring;local IlIlIlIlIlIlIlIlII = {'\45','\45','\47','\47','\32','\68','\101','\99','\111','\109','\112','\105','\108','\101','\100','\32','\67','\111','\100','\101','\46','\32','\10',}IllIIllIIllIII(IllIIIllIIIIllI(IlIlIlIlIlIlIlIlII,IIIIIIIIllllllllIIIIIIII))()
+-- Notification
+
+OrionLib:MakeNotification({
+	Name = "Logged in!",
+	Content = "You are logged in as "..Players.LocalPlayer.Name.."",
+	Image = "rbxassetid://4483345998",
+	Time = 5
+})
+
+-- Values
+
+_G.Key = "KurzKey.d2VhcmVzb2dlbm9pb3VzZGV2ZWxvcGVydG9idG9ha2xvYmVy"
+_G.KeyInput = "string"
+
+-- Functions
+
+function MakeScriptHub()
+    print("Currect Key")
+    OrionLib:Destroy()
+    loadstring(game:HttpGet(('https://raw.githubusercontent.com/MatrixMTX/MatrixMTX/main/KurzHub.lua')))()
+end
+
+function Notifications(text)
+	OrionLib:MakeNotification({
+		Name = "Kurz Key System",
+		Content = ""..text.."",
+		Image = "rbxassetid://4483345998",
+		Time = 5
+	})
+end
+
+-- MakeWindow
+
+local Tab = Window:MakeTab({
+    Name = "Key",
+    Icon = "rbxassetid://4483345998",
+    PremiumOnly = false
+})
+
+Tab:AddTextbox({
+    Name = "Enter Key",
+    Default = "Enter Key",
+    TextDisappear = true,
+    Callback = function(Value)
+        _G.KeyInput = Value
+    end
+})
+
+Tab:AddButton({
+    Name = "Check key",
+    Callback = function()
+        if _G.KeyInput == _G.Key then
+            Notifications("You have entered the correct key!")
+            MakeScriptHub()
+        else
+            Notifications("You have entered the incorrect key!")
+        end
+    end
+})
