@@ -51,7 +51,8 @@ function ESP()
 			if v.Name ~= Players.LocalPlayer.Name then
 				local ESP = Drawing.new("Text")
 
-				RunService.RenderStepped:Connect(function()
+				Stepped = RunService.RenderStepped:Connect(function()
+					if _G.ESP == false then Stepped:Disconnect() end
 					if workspace:FindFirstChild(v.Name) ~= nil and workspace[v.Name]:FindFirstChild("HumanoidRootPart") ~= nil then
 						local Vector, OnScreen = Camera:WorldToViewportPoint(workspace[v.Name]:WaitForChild("Head", math.huge).Position)
 
@@ -132,7 +133,8 @@ function ESP()
 				if v.Name ~= Players.LocalPlayer.Name then 
 					local ESP = Drawing.new("Text")
 
-					RunService.RenderStepped:Connect(function()
+					Stepped = RunService.RenderStepped:Connect(function()
+						if _G.ESP == false then Stepped:Disconnect() end
 						if workspace:FindFirstChild(v.Name) ~= nil and workspace[v.Name]:FindFirstChild("HumanoidRootPart") ~= nil then
 							local Vector, OnScreen = Camera:WorldToViewportPoint(workspace[v.Name]:WaitForChild("Head", math.huge).Position)
 
