@@ -41,7 +41,6 @@ function ESP()
 				local ESP = Drawing.new("Text")
 
 				RunService.RenderStepped:Connect(function()
-					if _G.ESP == false then return end
 					if workspace:FindFirstChild(v.Name) ~= nil and workspace[v.Name]:FindFirstChild("HumanoidRootPart") ~= nil then
 						local Vector, OnScreen = Camera:WorldToViewportPoint(workspace[v.Name]:WaitForChild("Head", math.huge).Position)
 
@@ -109,9 +108,7 @@ function ESP()
 		end
 
 		game.Players.PlayerAdded:Connect(function(player)
-			if _G.ESP == false then return end
 			Player.CharacterAdded:Connect(function(v)
-				if _G.ESP == false then return end
 				if not player.Character:FindFirstChild("HumanoidRootPart"):FindFirstChild("Highlight") and _G.ESP then
 					local highlightClone = highlight:Clone()
 					highlightClone.Adornee = player.Character
@@ -159,7 +156,6 @@ function ESP()
 					end)
 
 					Players.PlayerRemoving:Connect(function(playerRemoved)
-						ESP.Visible = false
 						if playerRemoved.Character and playerRemoved.Character:FindFirstChild("HumanoidRootPart") and playerRemoved.Character:FindFirstChild("HumanoidRootPart"):FindFirstChild("Highlight") and _G.ESP then
 							playerRemoved.Character:FindFirstChild("HumanoidRootPart"):FindFirstChild("Highlight"):Destroy()
 						end
@@ -194,6 +190,7 @@ function ESP()
 			end
 		end
 	end
+	return
 end
 
 function InfiniteJump()
@@ -296,4 +293,4 @@ while wait() do
         game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").WalkSpeed = _G.WS
         game.Players.LocalPlayer.Character:FindFirstChild("Humanoid").JumpPower = _G.JH
     end
-endv
+end
