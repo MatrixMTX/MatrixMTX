@@ -4,6 +4,7 @@ local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
 local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
+local Mouse = Players.LocalPlayer:GetMouse()
 local Camera = workspace.CurrentCamera
 
 -- Notification
@@ -36,6 +37,7 @@ _G.TextFont = Drawing.Fonts.UI   -- The font of the text. (UI, System, Plex, Mon
 
 _G.WS = 16
 _G.JH = 50
+_G.CtrlTP = false
 _G.KeepData = false
 _G.isJumping = false
 
@@ -202,6 +204,29 @@ function ESP()
 	return
 end
 
+function Teleport(pos)
+	local Char = Players.LocalPlayer.Character
+	if Char then
+		Char:MoveTo(pos)
+	end
+end
+
+function CtrlTP()
+	if _G.CtrlTP then
+		UserInputService.InputBegan:Connect(function(input)
+			if _G.CtrlTP then
+				if input.UserInputType == Enum.UserInputType.MouseButton1 and UIS:IsKeyDown(Enum.KeyCode.LeftControl) then
+					Teleport(Mouse.Hit.p)
+				end
+			else
+				return
+			end
+		end)
+	else
+		return
+	end
+end
+
 function InfiniteJump()
 	if _G.isJumping then
 		game:GetService("UserInputService").JumpRequest:connect(function()
@@ -227,8 +252,20 @@ end
 
 -- Tabs
 
+local MainTab = Window:MakeTab({
+	Name = "Main",
+	Icon = "rbxassetid://13060262529",
+	PremiumOnly = false
+})
+
 local PlayerTab = Window:MakeTab({
 	Name = "Player",
+	Icon = "rbxassetid://2795572800",
+	PremiumOnly = false
+})
+
+local TpTab = Window:MakeTab({
+	Name = "TP",
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
@@ -238,6 +275,17 @@ local EspTab = Window:MakeTab({
 	Icon = "rbxassetid://4483345998",
 	PremiumOnly = false
 })
+
+local SettingTab = Window:MakeTab({
+	Name = "Setting",
+	Icon = "rbxassetid://6031280882",
+	PremiumOnly = false
+})
+
+MainTab:AddLabel("Just Main Tab lol")
+MainTab:AddLabel("Copyright (C) Kurz")
+
+PlayerTab:AddLabel("Player Setting")
 
 PlayerTab:AddSlider({
 	Name = "Walkspeed",
@@ -268,14 +316,6 @@ PlayerTab:AddSlider({
 })
 
 PlayerTab:AddToggle({
-    Name = "Keep Data",
-    Default = false,
-    Callback = function(Value)
-        _G.KeepData = Value
-    end
-})
-
-PlayerTab:AddToggle({
 	Name = "Infinite Jump",
 	Default = false,
 	Callback = function(Value)
@@ -283,6 +323,28 @@ PlayerTab:AddToggle({
 		InfiniteJump()
 	end
 })
+
+PlayerTab:AddLabel("Other Setting")
+
+PlayerTab:AddToggle({
+    Name = "Keep Data",
+    Default = false,
+    Callback = function(Value)
+        _G.KeepData = Value
+    end
+})
+
+TpTab:AddLabel("Ctrl + Click to TP")
+PlayerTab:AddToggle({
+    Name = "CtrlTP",
+    Default = false,
+    Callback = function(Value)
+        _G.CtrlTP = Value
+		CtrlTP()
+    end
+})
+
+EspTab:AddLabel("ESP Setting")
 
 EspTab:AddToggle({
 	Name = "ESP Mode",
@@ -300,6 +362,9 @@ EspTab:AddColorpicker({
 		_G.Color = Value
 	end
 })
+
+SettingTab:AddLabel("Show/Hide Key: RightShift")
+SettingTab:AddLabel("KurzHub Version: v0.6.8")
 
 OrionLib.init()
 
