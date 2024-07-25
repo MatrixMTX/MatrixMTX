@@ -6,6 +6,15 @@ local UserInputService = game:GetService("UserInputService")
 local RunService = game:GetService("RunService")
 local Camera = workspace.CurrentCamera
 
+-- Notification
+
+OrionLib:MakeNotification({
+	Name = "Logged in!",
+	Content = "You are logged in as "..Players.LocalPlayer.Name.."",
+	Image = "rbxassetid://4483345998",
+	Time = 5
+})
+
 -- Values
 local Typing = false
 _G.ESP = false
@@ -209,8 +218,8 @@ end
 
 function Notifications(text)
 	OrionLib:MakeNotification({
-		Name = "Kurz Hub",
-		Content = text,
+		Name = "Kurz Key System",
+		Content = ""..text.."",
 		Image = "rbxassetid://4483345998",
 		Time = 5
 	})
@@ -263,7 +272,7 @@ PlayerTab:AddToggle({
     Default = false,
     Callback = function(Value)
         _G.KeepData = Value
-		Notifications("Keep Data: "..Value)
+		Notifications("Keep Data: "..Value.."")
     end
 })
 
@@ -273,7 +282,7 @@ PlayerTab:AddToggle({
 	Callback = function(Value)
 		_G.isJumping = Value
 		InfiniteJump()
-		Notifications("InfiniteJump: "..Value)
+		Notifications("InfiniteJump: "..Value.."")
 	end
 })
 
@@ -283,7 +292,7 @@ EspTab:AddToggle({
 	Callback = function(Value)
 		_G.ESP = Value
 		ESP()
-		Notifications("ESP: "..Value)
+		Notifications("ESP: "..Value.."")
 	end    
 })
 
