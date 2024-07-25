@@ -272,7 +272,6 @@ PlayerTab:AddToggle({
     Default = false,
     Callback = function(Value)
         _G.KeepData = Value
-		Notifications("Keep Data: "..Value.."")
     end
 })
 
@@ -282,7 +281,6 @@ PlayerTab:AddToggle({
 	Callback = function(Value)
 		_G.isJumping = Value
 		InfiniteJump()
-		Notifications("InfiniteJump: "..Value.."")
 	end
 })
 
@@ -292,7 +290,6 @@ EspTab:AddToggle({
 	Callback = function(Value)
 		_G.ESP = Value
 		ESP()
-		Notifications("ESP: "..Value.."")
 	end    
 })
 
