@@ -27,7 +27,7 @@ end
 function Notifications(text)
 	OrionLib:MakeNotification({
 		Name = "Kurz Key System",
-		Content = text,
+		Content = ""..text.."",
 		Image = "rbxassetid://4483345998",
 		Time = 5
 	})
