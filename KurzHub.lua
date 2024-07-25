@@ -215,7 +215,7 @@ function CtrlTP()
 	if _G.CtrlTP then
 		UserInputService.InputBegan:Connect(function(input)
 			if _G.CtrlTP then
-				if input.UserInputType == Enum.UserInputType.MouseButton1 and UIS:IsKeyDown(Enum.KeyCode.LeftControl) then
+				if input.UserInputType == Enum.UserInputType.MouseButton1 and UserInputService:IsKeyDown(Enum.KeyCode.LeftControl) then
 					Teleport(Mouse.Hit.p)
 				end
 			else
