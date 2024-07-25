@@ -194,9 +194,7 @@ function ESP()
 				v.Character:FindFirstChild("HumanoidRootPart"):FindFirstChild("Highlight"):Destroy()
 			end
 		end
-		return
 	end
-    return
 end
 
 function InfiniteJump()
