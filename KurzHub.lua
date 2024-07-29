@@ -145,6 +145,9 @@ function ESP()
 							ESP.OutlineColor = _G.OutlineColor
 							ESP.Color = _G.Color
 							ESP.Transparency = _G.TextTransparency
+							if v.Character:FindFirstChild("HumanoidRootPart"):FindFirstChild("Highlight") then
+								v.Character:FindFirstChild("HumanoidRootPart"):FindFirstChild("Highlight").OutlineColor = _G.Color
+							end
 
 							if OnScreen == true then
 								local Part1 = workspace:WaitForChild(v.Name, math.huge):WaitForChild("HumanoidRootPart", math.huge).Position
