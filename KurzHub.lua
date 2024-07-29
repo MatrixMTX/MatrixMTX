@@ -40,6 +40,7 @@ _G.JH = 50
 _G.CtrlTP = false
 _G.KeepData = false
 _G.isJumping = false
+_G.Clipon = false
 
 -- Functions
 function ESP()
@@ -256,6 +257,25 @@ function InfiniteJump()
 	end
 end
 
+function Noclip()
+	if _G.Clipon == false then return end
+	Stepped = game:GetService("RunService").Stepped:Connect(function()
+		if _G.Clipon then
+			for a, b in pairs(workspace:GetChildren()) do
+				if b.Name == Players.LocalPlayer.Name then
+					for i, v in pairs(workspace[Players.LocalPlayer.Name]:GetChildren()) do
+						if v:IsA("BasePart") then
+							v.CanCollide = false
+						end 
+					end 
+				end 
+			end
+		else
+			Stepped:Disconnect()
+		end
+	end)
+end
+
 function Notifications(text)
 	OrionLib:MakeNotification({
 		Name = "Kurz Key System",
@@ -345,6 +365,15 @@ PlayerTab:AddToggle({
 	end
 })
 
+PlayerTab:AddToggle({
+	Name = "Noclip",
+	Default = false,
+	Callback = function(Value)
+		_G.Clipon = Value
+		Noclip()
+	end
+})
+
 PlayerTab:AddLabel("Other Setting")
 
 PlayerTab:AddToggle({
@@ -385,13 +414,13 @@ EspTab:AddColorpicker({
 	end
 })
 
-SettingTab:AddLabel("Show/Hide Key: RightShift")
 SettingTab:AddButton({
 	Name = "Destroy UI",
 	Callback = function()
 		OrionLib:Destroy()
 	end
 })
+SettingTab:AddLabel("Show/Hide Key: RightShift")
 SettingTab:AddLabel("KurzHub Version: v0.6.8")
 
 CreditsTab:AddLabel("Scripter: TW_ASVZ / Kurz")
